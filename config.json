@@ -1,0 +1,16 @@
+{
+  "BOT_TOKEN": "8125054003:AAFQQ0AygTVezrYaciVIam_jnmtXpuTuxGU",
+  "SHEET_ID": "https://docs.google.com/spreadsheets/d/1VQUeo39NAmR4PnwBIgJatZLD_qMtNjeHuEQglFNcCCs/edit?usp=sharing",
+  "SERVICE_ACCOUNT": {
+    "type": "service_account",
+    "project_id": "doctor-ai-bot-421214",
+    "private_key_id": "PASTE_KEY_ID",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nPASTE_KEY\n-----END PRIVATE KEY-----\n",
+    "client_email": "doctor-ai-bot@doctor-ai-bot-421214.iam.gserviceaccount.com",
+    "client_id": "PASTE_CLIENT_ID",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "PASTE_CERT_URL"
+  }
+}

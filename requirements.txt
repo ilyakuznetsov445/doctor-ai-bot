@@ -1,0 +1,4 @@
+aiogram==3.0.0
+gspread-asyncio==1.2.0
+gspread==5.11.1
+oauth2client==4.1.3
