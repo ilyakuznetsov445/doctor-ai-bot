@@ -1,28 +1,26 @@
 import asyncio
+import os
+import json
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 import gspread
-import json
 from datetime import datetime
 import logging
 
-# Настройки
-with open("config.json", "r") as f:
-    config = json.load(f)
+# Получаем переменные окружения
+bot_token = os.getenv("BOT_TOKEN")
+sheet_id = os.getenv("SHEET_ID")
+service_account_info = json.loads(os.getenv("GOOGLE_CREDS"))
 
-bot_token = config["BOT_TOKEN"]
-sheet_id = config["SHEET_ID"]
-service_account_info = config["SERVICE_ACCOUNT"]
-
-# Логгирование
+# Настраиваем логгирование
 logging.basicConfig(level=logging.INFO)
 
-# Google Sheets авторизация
+# Авторизация Google Sheets
 gc = gspread.service_account_from_dict(service_account_info)
 sh = gc.open_by_key(sheet_id)
 
-# Бот
+# Telegram-бот
 bot = Bot(token=bot_token)
 dp = Dispatcher()
 
@@ -35,7 +33,7 @@ def get_response(command):
         for row in data:
             if row["command"] == command:
                 return row["response_text"]
-        return "🛠 Ответ не найден. Обратитесь к врачу, или к разработчику :)"
+        return "🛠 Ответ не найден. Обратитесь к врачу или к разработчику :)"
     except Exception as e:
         return f"Ошибка при получении ответа: {e}"
 
