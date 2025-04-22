@@ -25,16 +25,33 @@ dp = Dispatcher()
 
 user_names = {}
 
-def get_response(command):
+def get_response_by_command(command):
     try:
         ws = sh.worksheet("content")
         data = ws.get_all_records()
         for row in data:
-            if row["command"] == command:
-                return row["response_text"]
-        return "🛠 Ответ не найден. Обратитесь к врачу или к разработчику :)"
+            if row.get("command") == command:
+                return row.get("response_text", "")
+        return None
     except Exception as e:
         return f"Ошибка при получении ответа: {e}"
+
+def get_response_by_keywords(message_text):
+    try:
+        ws = sh.worksheet("content")
+        data = ws.get_all_records()
+        for row in data:
+            keywords = row.get("keywords", "")
+            response = row.get("response_text", "")
+            if not keywords or not response:
+                continue
+            keyword_list = [kw.strip().lower() for kw in keywords.split(",")]
+            for keyword in keyword_list:
+                if keyword in message_text.lower():
+                    return response
+        return None
+    except Exception as e:
+        return f"Ошибка при обработке ключевых слов: {e}"
 
 def log_action(user: types.User, command: str):
     try:
@@ -71,14 +88,15 @@ async def handle_message(message: Message):
     if user_id not in user_names:
         user_names[user_id] = text
         log_action(message.from_user, "set_name")
-        greeting = get_response("greeting")
-        await message.answer(greeting.replace("{name}", text))
+        greeting = get_response_by_command("greeting")
+        if greeting:
+            await message.answer(greeting.replace("{name}", text))
+        else:
+            await message.answer("Приятно познакомиться, {name}!".replace("{name}", text))
     else:
         log_action(message.from_user, "message")
-        await message.answer("Я вас слушаю! Можете задать вопрос или написать /reset, чтобы поменять имя.")
-
-async def main():
-    await dp.start_polling(bot)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+        response = get_response_by_keywords(text)
+        if response:
+            await message.answer(response)
+        else:
+            await message.answer("Я вас слушаю, но не совсем понял, о чём вы. Попробуйте иначе или напишите /reset.")
