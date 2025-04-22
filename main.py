@@ -3,7 +3,7 @@ import os
 import json
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import Message
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 import gspread
 from datetime import datetime
 import logging
@@ -20,11 +20,9 @@ logging.basicConfig(level=logging.INFO)
 gc = gspread.service_account_from_dict(service_account_info)
 sh = gc.open_by_key(sheet_id)
 
-# Telegram-бот
 bot = Bot(token=bot_token)
 dp = Dispatcher()
 
-# Хранилище имён пользователей
 user_names = {}
 
 def get_response(command):
@@ -55,8 +53,15 @@ def log_action(user: types.User, command: str):
 async def start(message: Message):
     user_id = message.from_user.id
     log_action(message.from_user, "/start")
-    user_names.pop(user_id, None)  # сбрасываем имя
+    user_names.pop(user_id, None)
     await message.answer("👋 Привет! Я — Доктор Ай-бот. Как я могу к вам обращаться?")
+
+@dp.message(Command("reset"))
+async def reset(message: Message):
+    user_id = message.from_user.id
+    user_names.pop(user_id, None)
+    log_action(message.from_user, "/reset")
+    await message.answer("Хорошо, давай начнём заново. Как я могу к вам обращаться?")
 
 @dp.message()
 async def handle_message(message: Message):
