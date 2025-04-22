@@ -80,8 +80,7 @@ async def get_symptoms(message: Message, state: FSMContext):
     symptoms = message.text
     log_appointment(message.from_user.id, name, date, time, symptoms)
     await state.clear()
-    await message.answer("✅ Вы записаны!
-Спасибо, я передам информацию врачу. До встречи!")
+    await message.answer("✅ Вы записаны!\nСпасибо, я передам информацию врачу. До встречи!")
 
 @dp.message()
 async def handle_message(message: Message):
