@@ -2,7 +2,6 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import Message
 from aiogram.filters import CommandStart
-from gspread_asyncio import AsyncioGspreadClientManager
 import gspread
 import json
 from datetime import datetime
@@ -20,10 +19,8 @@ service_account_info = config["SERVICE_ACCOUNT"]
 logging.basicConfig(level=logging.INFO)
 
 # Google Sheets авторизация
-def get_creds():
-    return service_account_info
-
-agcm = AsyncioGspreadClientManager(get_creds)
+gc = gspread.service_account_from_dict(service_account_info)
+sh = gc.open_by_key(sheet_id)
 
 # Бот
 bot = Bot(token=bot_token)
@@ -31,39 +28,41 @@ dp = Dispatcher()
 
 user_names = {}
 
-async def get_response(command):
-    agc = await agcm.authorize()
-    sh = await agc.open_by_key(sheet_id)
-    ws = await sh.worksheet("content")
-    data = await ws.get_all_records()
-    for row in data:
-        if row["command"] == command:
-            return row["response_text"]
-    return "🛠 Ответ не найден. Обратитесь к врачу, или к разработчику :)"
+def get_response(command):
+    try:
+        ws = sh.worksheet("content")
+        data = ws.get_all_records()
+        for row in data:
+            if row["command"] == command:
+                return row["response_text"]
+        return "🛠 Ответ не найден. Обратитесь к врачу, или к разработчику :)"
+    except Exception as e:
+        return f"Ошибка при получении ответа: {e}"
 
-async def log_action(user: types.User, command: str):
-    agc = await agcm.authorize()
-    sh = await agc.open_by_key(sheet_id)
-    log_ws = await sh.worksheet("logs")
-    await log_ws.append_row([
-        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        user.id,
-        user_names.get(user.id, ""),
-        user.username or "",
-        command
-    ])
+def log_action(user: types.User, command: str):
+    try:
+        log_ws = sh.worksheet("logs")
+        log_ws.append_row([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            user.id,
+            user_names.get(user.id, ""),
+            user.username or "",
+            command
+        ])
+    except Exception as e:
+        logging.error(f"Ошибка при логировании: {e}")
 
 @dp.message(CommandStart())
 async def start(message: Message):
-    await log_action(message.from_user, "/start")
-    response = await get_response("start")
+    log_action(message.from_user, "/start")
+    response = get_response("start")
     await message.answer(response)
 
 @dp.message()
 async def catch_name(message: Message):
     user_names[message.from_user.id] = message.text.strip()
-    await log_action(message.from_user, "set_name")
-    greeting = await get_response("greeting")
+    log_action(message.from_user, "set_name")
+    greeting = get_response("greeting")
     await message.answer(greeting.replace("{name}", message.text.strip()))
 
 async def main():
