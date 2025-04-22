@@ -24,6 +24,7 @@ sh = gc.open_by_key(sheet_id)
 bot = Bot(token=bot_token)
 dp = Dispatcher()
 
+# Хранилище имён пользователей
 user_names = {}
 
 def get_response(command):
@@ -52,16 +53,24 @@ def log_action(user: types.User, command: str):
 
 @dp.message(CommandStart())
 async def start(message: Message):
+    user_id = message.from_user.id
     log_action(message.from_user, "/start")
-    response = get_response("start")
-    await message.answer(response)
+    user_names.pop(user_id, None)  # сбрасываем имя
+    await message.answer("👋 Привет! Я — Доктор Ай-бот. Как я могу к вам обращаться?")
 
 @dp.message()
-async def catch_name(message: Message):
-    user_names[message.from_user.id] = message.text.strip()
-    log_action(message.from_user, "set_name")
-    greeting = get_response("greeting")
-    await message.answer(greeting.replace("{name}", message.text.strip()))
+async def handle_message(message: Message):
+    user_id = message.from_user.id
+    text = message.text.strip()
+
+    if user_id not in user_names:
+        user_names[user_id] = text
+        log_action(message.from_user, "set_name")
+        greeting = get_response("greeting")
+        await message.answer(greeting.replace("{name}", text))
+    else:
+        log_action(message.from_user, "message")
+        await message.answer("Я вас слушаю! Можете задать вопрос или написать /reset, чтобы поменять имя.")
 
 async def main():
     await dp.start_polling(bot)
