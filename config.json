@@ -1,16 +1,17 @@
 {
   "BOT_TOKEN": "8125054003:AAFQQ0AygTVezrYaciVIam_jnmtXpuTuxGU",
-  "SHEET_ID": "https://docs.google.com/spreadsheets/d/1VQUeo39NAmR4PnwBIgJatZLD_qMtNjeHuEQglFNcCCs/edit?usp=sharing",
+  "SHEET_ID": "1VQUeo39NAmR4PnwBIgJatZLD_qMtNjeHuEQglFNcCCs",
   "SERVICE_ACCOUNT": {
     "type": "service_account",
-    "project_id": "doctor-ai-bot-421214",
-    "private_key_id": "PASTE_KEY_ID",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nPASTE_KEY\n-----END PRIVATE KEY-----\n",
-    "client_email": "doctor-ai-bot@doctor-ai-bot-421214.iam.gserviceaccount.com",
-    "client_id": "PASTE_CLIENT_ID",
+    "project_id": "doctor-bot-457620",
+    "private_key_id": "887655ba319e4c527abe61d7096c974a4799a834",
+    "private_key": "-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCu/faNHod2SFNV\\n2NZR3Gn9mLWasG9svRjJjc+bPqXQfuj8m+DZmLn2b6FGWSJxs55TnZ4A/oxnO/UD\\nIrzEtv/NdaKepMIyjI3MmoZQIrSjbhe9ht9fy7h7WOdhP/eKyqaHYPnkwb+TeFeh\\nIyIA8QVHSArxd8/oxtVNjKTOU0frbVk0jwHRN4fZiMhxJ8nmYpM8qh0JWfEghBo0\\n7EzJViifQII2oxNxG+t0X13ha03IJGWi0/p5/Eu17i/numduSIfELh9J7kp5I/19\\ngeQefFv0P3qyeQ8x9/+e7vUZUvEXCuBhhCVqbDtyGTsRGK8H+jyfO7tYvrHjjHW5\\nA/lFbxs/AgMBAAECggEAA2hwxR4jbJCgsYWlOYzoXNxSKm67N3aV+qmSByejhQ75\\nAfUV3kb/gCbREOoAJg9lyvfBMasYwuiZBJ7y5tswL36Aqe7y1UHa1RxBTLg6+l/U\\n2Ie9kUO0wQ+MhLQBNykWhdZup3Tagp26XyoBqduydZ6X5UynC5UrvEnmlRoWxs/0\\nWww2xQUiZOKb9N/TCCRce1sKeiJhARGcFYPmOyMLdzKv5nqnaaAaXRuuHtzg/qRE\\nj/A7gCWuyi/4CsvtVIi0IEtRPOMLcAFJusGD/p/wdYNbyueStFaSsvqWCFAUl7q9\\nsUm960822cqfkAt0JJZkZ6f5RV6Mr7tFncDZvUHNwQKBgQD2x1JLU9LULutWRmrQ\\nS9c8ni/xSERpX84Tj2UcxyOebdQSy7qpnE0xx/rWxbEXPyBlrh4X8MZoaRLwoKLS\\n5rlbP/EBWR7xKbUFVaulaZdaz5cmQQutmVUsSrrcIIjqA/gpAc0dY8WJ6AmEEEUw\\nT0OZ3xnVMI2TgFdL7ubSLLDP4QKBgQC1h+7cFYPXboJENIseHXDN4kzf5uNKwVLH\\nGzOqay0jHat2eKLnEUcSfFAXFCwq/4CmQfkOYrryxT/juqEVAV48KWxYiMnvZZ5b\\nstpOdP3Kw3t5Oqn3YFpG4gT10yAX08IiaHP/dTUz+n0XNj4Ynu67Nf6LsigDydfk\\npy/obc/PHwKBgDFMOCBcKm3AwbqGbqgVvnWZlDI7IY97WAuIRcat8WugvRDUKgHf\\n+3vKW020SGBAeBRX6CMYMkqBUwtGy8Ad30FfUKHYT9oVXtgl+RgeM+IsPiGiNNcF\\nHoKumw2GYlN9X4GxnmwUlk2qUNxU871m2DZQ3zQ7cszYgpfkra+mxduBAoGBAJ/B\\nvYiatqjFbIcx5qzeJARNAHKb87Q6ZusrGVEFeXfKCLf+ev73yaCPHrzw194Pddzb\\neqAaa4Rz60IzYMfnqFMx8VQJLg4tVCxHPrCFbUUgvG14H1TByzFOgCcHYtsVVWiK\\nnGtZbzULYUMoTYXFeTvwzM+MPoL3A7ULHbJj0drpAoGBAOo24Ug6a+If0tPyCK2e\\n5IDYb4G1KzZw6tn2Rv8nsHFD78sDQ3i9Km7NB4uM5bBQoE+a456K/t3LY65dGCfw\\npDlHhioXzGpuE/9DWq5rxXXIVqhwUYWQ9IYeeQ5WDnyyYIredoC3+4bS5phVMh52\\nftrnAcaqO98b2vZvQt0SBQfM\\n-----END PRIVATE KEY-----\\n",
+    "client_email": "doctor-bot@doctor-bot-457620.iam.gserviceaccount.com",
+    "client_id": "116282711594143949566",
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "PASTE_CERT_URL"
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/doctor-bot%40doctor-bot-457620.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
   }
 }
